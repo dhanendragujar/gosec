@@ -1,4 +1,4 @@
-# gosecSAST
+# goSAST
 
 Inspects source code for security problems by scanning the Go AST.
 
@@ -8,22 +8,13 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 
 Install
-CI Installation
-# binary will be $GOPATH/bin/gosec
-curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin vX.Y.Z
 
-# or install it into ./bin/
-curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
-
-# In alpine linux (as it does not come with curl by default)
-wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
-
-gosec --help
 Local Installation
 $ go get github.com/securego/gosec/cmd/gosec/...
 
 Usage
-Gosec can be configured to only run a subset of rules, to exclude certain file paths, and produce reports in different formats. By default all rules will be run against the supplied input files. To recursively scan from the current directory you can supply './...' as the input argument.
+
+goSAST can be configured to only run a subset of rules, to exclude certain file paths, and produce reports in different formats. By default all rules will be run against the supplied input files. To recursively scan from the current directory you can supply './...' as the input argument.
 
 Selecting rules
 By default gosec will run all rules against the supplied file paths. It is however possible to select a subset of rules to run via the '-include=' flag, or to specify a set of rules to explicitly exclude using the '-exclude=' flag.
@@ -54,6 +45,7 @@ G502: Import blacklist: crypto/des
 G503: Import blacklist: crypto/rc4
 G504: Import blacklist: net/http/cgi
 G505: Import blacklist: crypto/sha1
+
 # Run a specific set of rules
 $ gosec -include=G101,G203,G401 ./...
 
@@ -70,8 +62,10 @@ A number of global settings can be provided in a configuration file as follows:
 }
 nosec: this setting will overwrite all #nosec directives defined throughout the code base
 audit: runs in audit mode which enables addition checks that for normal code analysis might be too nosy
+
 # Run with a global configuration file
 $ gosec -conf config.json .
+
 Excluding files
 gosec will ignore dependencies in your vendor directory any files that are not considered build artifacts by the compiler (so test files).
 
