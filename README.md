@@ -21,9 +21,9 @@ wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh 
 
 gosec --help
 
-Local Installation
-$ go get github.com/securego/
-/cmd/gosec/...
+#Local Installation
+
+$ go get github.com/securego/gosec/cmd/gosec/...
 
 Usage
 
