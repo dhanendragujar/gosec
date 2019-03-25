@@ -10,12 +10,15 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 # CI Installation
 
 #binary will be $GOPATH/bin/gosec
+
 curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin vX.Y.Z
 
 #or install it into ./bin/
+
 curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
 
 #In alpine linux (as it does not come with curl by default)
+
 wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
 
 gosec --help
