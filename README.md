@@ -76,7 +76,6 @@ The annotation causes gosec to stop processing any further nodes within the AST 
 
 import "md5" // #nosec
 
-
 func main(){
 
     /* #nosec */
@@ -85,6 +84,7 @@ func main(){
     }
 
 }
+
 When a specific false positive has been identified and verified as safe, you may wish to suppress only that single rule (or a specific set of rules) within a section of code, while continuing to scan for other problems. To do this, you can list the rule(s) to be suppressed within the #nosec annotation, e.g: /* #nosec G401 */ or // #nosec G201 G202 G203
 
 In some cases you may also want to revisit places where #nosec annotations have been used. To run the scanner and ignore any #nosec annotations you can do the following:
