@@ -1,22 +1,12 @@
 
-# gosec - Golang Security Checker
+# gosec
 
 Inspects source code for security problems by scanning the Go AST.
 
-<img src="https://securego.io/img/gosec.png" width="320">
-
 ## License
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 You may obtain a copy of the License [here](http://www.apache.org/licenses/LICENSE-2.0).
-
-## Project status
-
-[![Build Status](https://travis-ci.org/securego/gosec.svg?branch=master)](https://travis-ci.org/securego/gosec)
-[![Coverage Status](https://codecov.io/gh/securego/gosec/branch/master/graph/badge.svg)](https://codecov.io/gh/securego/gosec)
-[![GoDoc](https://godoc.org/github.com/securego/gosec?status.svg)](https://godoc.org/github.com/securego/gosec)
-[![Slack](http://securego.herokuapp.com/badge.svg)](http://securego.herokuapp.com)
 
 ## Install
 
@@ -48,7 +38,7 @@ directory you can supply './...' as the input argument.
 
 ### Selecting rules
 
-By default gosec will run all rules against the supplied file paths. It is however possible to select a subset of rules to run via the '-include=' flag,
+By default gosec will run all rules against the supplied file paths. By default it will perform Taint Analysis on the code to check whether the user input is being validated or not. It is however possible to select a subset of rules to run via the '-include=' flag,
 or to specify a set of rules to explicitly exclude using the '-exclude=' flag.
 
 ### Available rules
