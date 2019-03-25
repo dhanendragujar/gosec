@@ -14,20 +14,20 @@ You may obtain a copy of the License [here](http://www.apache.org/licenses/LICEN
 
 ```bash
 # binary will be $GOPATH/bin/gosec
-curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin vX.Y.Z
+curl -sfL https://raw.githubusercontent.com/dhanendragujar/gosec/master/install.sh | sh -s -- -b $GOPATH/bin vX.Y.Z
 
 # or install it into ./bin/
-curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
+curl -sfL https://raw.githubusercontent.com/dhanendragujar/gosec/master/install.sh | sh -s vX.Y.Z
 
 # In alpine linux (as it does not come with curl by default)
-wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
+wget -O - -q https://raw.githubusercontent.com/dhanendragujar/gosec/master/install.sh | sh -s vX.Y.Z
 
 gosec --help
 ```
 
 ### Local Installation
 
-`$ go get github.com/securego/gosec/cmd/gosec/...`
+`$ go get github.com/dhanendragujar/gosec/cmd/gosec/...`
 
 ## Usage
 
@@ -217,7 +217,7 @@ You can run the `gosec` tool in a container against your local Go project. You j
 `GOPATH` of the container:
 
 ```bash
-docker run -it -v $GOPATH/src/<YOUR PROJECT PATH>:/go/src/<YOUR PROJECT PATH> securego/gosec ./...
+docker run -it -v $GOPATH/src/<YOUR PROJECT PATH>:/go/src/<YOUR PROJECT PATH> dhanendragujar/gosec ./...
 ```
 
 ### Generate TLS rule
@@ -227,7 +227,7 @@ The configuration of TLS rule can be generated from [Mozilla's TLS ciphers recom
 First you need to install the generator tool:
 
 ```bash
-go get github.com/securego/gosec/cmd/tlsconfig/...
+go get github.com/dhanendragujar/gosec/cmd/tlsconfig/...
 ```
 
 You can invoke now the `go generate` in the root of the project:
