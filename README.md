@@ -1,4 +1,4 @@
-# goSAST
+# gosec
 
 Inspects source code for security problems by scanning the Go AST.
 
@@ -9,15 +9,28 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 Install
 
+CI Installation
+# binary will be $GOPATH/bin/gosec
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin vX.Y.Z
+
+# or install it into ./bin/
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
+
+# In alpine linux (as it does not come with curl by default)
+wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
+
+gosec --help
+
 Local Installation
-$ go get github.com/securego/gosec/cmd/gosec/...
+$ go get github.com/securego/
+/cmd/gosec/...
 
 Usage
 
-goSAST can be configured to only run a subset of rules, to exclude certain file paths, and produce reports in different formats. By default all rules will be run against the supplied input files. To recursively scan from the current directory you can supply './...' as the input argument.
+gosecT can be configured to only run a subset of rules, to exclude certain file paths, and produce reports in different formats. By default all rules will be run against the supplied input files. To recursively scan from the current directory you can supply './...' as the input argument.
 
 Selecting rules
-By default gosec will run all rules against the supplied file paths. It is however possible to select a subset of rules to run via the '-include=' flag, or to specify a set of rules to explicitly exclude using the '-exclude=' flag.
+By default gosec will run all rules against the supplied file paths. Along with the ruleset, it performs Taint Analysis on the code. It is however possible to select a subset of rules to run via the '-include=' flag, or to specify a set of rules to explicitly exclude using the '-exclude=' flag.
 
 Available rules
 G101: Look for hard coded credentials
