@@ -3,11 +3,12 @@
 Inspects source code for security problems by scanning the Go AST.
 
 
-#License
+# License
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License here.
 
-Install
-CI Installation
+# Install
+# CI Installation
+
 # binary will be $GOPATH/bin/gosec
 curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin vX.Y.Z
 
@@ -18,17 +19,18 @@ curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | s
 wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s vX.Y.Z
 
 gosec --help
-Local Installation
+
+# Local Installation
 $ go get github.com/securego/gosec/cmd/gosec/...
 
-Usage
+# Usage
 Gosec can be configured to only run a subset of rules, to exclude certain file paths, and produce reports in different formats. By default all rules will be run against the supplied input files. To recursively scan from the current directory you can supply './...' as the input argument.
 
-Selecting rules
+# Selecting rules
 
 By default gosec will run all rules against the supplied file paths. Along with the ruleset, it performs Taint Analysis on the code. It is however possible to select a subset of rules to run via the '-include=' flag, or to specify a set of rules to explicitly exclude using the '-exclude=' flag.
 
-Available rules
+# Available rules
 G101: Look for hard coded credentials
 G102: Bind to all interfaces
 G103: Audit the use of unsafe block
@@ -60,7 +62,8 @@ $ gosec -include=G101,G203,G401 ./...
 
 # Run everything except for rule G303
 $ gosec -exclude=G303 ./...
-Configuration
+
+# Configuration
 A number of global settings can be provided in a configuration file as follows:
 
 {
@@ -75,10 +78,10 @@ audit: runs in audit mode which enables addition checks that for normal code ana
 # Run with a global configuration file
 $ gosec -conf config.json .
 
-Excluding files
+# Excluding files
 gosec will ignore dependencies in your vendor directory any files that are not considered build artifacts by the compiler (so test files).
 
-Annotating code
+# Annotating code
 As with all automated detection tools there will be cases of false positives. In cases where gosec reports a failure that has been manually verified as being safe it is possible to annotate the code with a '#nosec' comment.
 
 The annotation causes gosec to stop processing any further nodes within the AST so can apply to a whole block or more granularly to a single expression.
