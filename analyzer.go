@@ -58,18 +58,19 @@ type Metrics struct {
 // Analyzer object is the main object of gosec. It has methods traverse an AST
 // and invoke the correct checking rules as on each node as required.
 type Analyzer struct {
-	ignoreNosec bool
-	ruleset     RuleSet
-	context     *Context
-	config      Config
-	logger      *log.Logger
-	issues      []*Issue
-	stats       *Metrics
-	errors      map[string][]Error // keys are file paths; values are the golang errors in those files
+	ignoreNosec 	bool
+	noTaintAnalysis	bool
+	ruleset     	RuleSet
+	context     	*Context
+	config      	Config
+	logger      	*log.Logger
+	issues      	[]*Issue
+	stats       	*Metrics
+	errors      	map[string][]Error // keys are file paths; values are the golang errors in those files
 }
 
 // NewAnalyzer builds a new analyzer.
-func NewAnalyzer(conf Config, logger *log.Logger) *Analyzer {
+func NewAnalyzer(conf Config, logger *log.Logger, noTaintAnalysis bool) *Analyzer {
 	ignoreNoSec := false
 	if enabled, err := conf.IsGlobalEnabled(Nosec); err == nil {
 		ignoreNoSec = enabled
@@ -78,14 +79,15 @@ func NewAnalyzer(conf Config, logger *log.Logger) *Analyzer {
 		logger = log.New(os.Stderr, "[gosec]", log.LstdFlags)
 	}
 	return &Analyzer{
-		ignoreNosec: ignoreNoSec,
-		ruleset:     make(RuleSet),
-		context:     &Context{},
-		config:      conf,
-		logger:      logger,
-		issues:      make([]*Issue, 0, 16),
-		stats:       &Metrics{},
-		errors:      make(map[string][]Error),
+		ignoreNosec: 		ignoreNoSec,
+		noTaintAnalysis:	noTaintAnalysis,
+		ruleset:     		make(RuleSet),
+		context:     		&Context{},
+		config:		      	conf,
+		logger:      		logger,
+		issues:      		make([]*Issue, 0, 16),
+		stats:       		&Metrics{},
+		errors:      		make(map[string][]Error),
 	}
 }
 
@@ -177,8 +179,9 @@ func (gosec *Analyzer) Process(buildTags []string, packagePaths ...string) error
 			gosec.context.Imports.TrackPackages(gosec.context.Pkg.Imports()...)
 			
 			//Integrate your code here
-
-   			TaintAnalysis(gosec)
+			if gosec.noTaintAnalysis == false {
+	   			TaintAnalysis(gosec)		
+			}
 			ast.Walk(gosec, file)
 			gosec.stats.NumFiles++
 			gosec.stats.NumLines += builtPackage.Fset.File(file.Pos()).LineCount()

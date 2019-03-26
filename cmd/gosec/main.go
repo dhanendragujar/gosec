@@ -83,6 +83,9 @@ var (
 	// rules to explicitly exclude
 	flagRulesExclude = flag.String("exclude", "", "Comma separated list of rules IDs to exclude. (see rule list)")
 
+	// rules to explicitly disable taint analysis
+	flagNoTaintAnalysis = flag.Bool("notaintanalysis", false, "Disables taint analysis")
+
 	// log to file or stderr
 	flagLogfile = flag.String("log", "", "Log messages to file rather than stderr")
 
@@ -306,7 +309,7 @@ func main() {
 	}
 
 	// Create the analyzer
-	analyzer := gosec.NewAnalyzer(config, logger)
+	analyzer := gosec.NewAnalyzer(config, logger, *flagNoTaintAnalysis)
 	analyzer.LoadRules(ruleDefinitions.Builders())
 
 	vendor := regexp.MustCompile(`[\\/]vendor([\\/]|$)`)

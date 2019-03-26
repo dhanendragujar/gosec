@@ -166,7 +166,8 @@ func TaintAnalysis(gosec *Analyzer) {
 	/////////////////////// Configuration Variables///////////////////
 
 	packages := make(map[string]*packageDetails)
-	packages["\"github.com/thedevsaddam/govalidator\""] = &packageDetails{packageName: "govalidator", constructor: "New", functionList: []string{"Validate"}} //Validate function takes no arguments, Request variable is passed to the constructor and the request variable is validated
+	// Okay wait a min 
+	packages["\"github.com/go-ozzo/ozzo-validation\""] = &packageDetails{packageName: "validation", constructor: "", functionList: []string{"Validate"}}
 	packages["\"gopkg.in/go-playground/validator.v9\""] = &packageDetails{packageName: "validator", constructor: "New", functionList: []string{"Struct", "Var"}}
 
 	validationPackages := make(map[string]*pkgFunctions)
@@ -227,17 +228,13 @@ func TaintAnalysis(gosec *Analyzer) {
 					}
 				}
 
-//				fmt.Printf("\n###############################\n")
 				for _, i := range flaggedVars {
-//					fmt.Printf("%s,%s:%s - %#v\n", i.filename, i.functionName, i.variableName, i.variableState)
-					//fmt.Printf("[%3d:%3d]%s,%s:%s - %#v\n", i.lineNumber, i.columnNumber, i.filename, i.functionName, i.variableName, i.variableState)
 					if (i.variableState.tainted == true && i.variableState.used == true) {
 						issue := NewIssue(gosec.context, i.node, "TaintAnalysis", "Variable tainted with user input and used before validation", Medium, Low)
 						gosec.issues = append(gosec.issues, issue)
 						gosec.stats.NumFound++						
 					}
 				}
-//				fmt.Printf("\n###############################\n")
 			}
 		}
 
