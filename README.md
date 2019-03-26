@@ -50,7 +50,7 @@ or to specify a set of rules to explicitly exclude using the '-exclude=' flag. T
 - math-audit: Audit the use of math/big.Int.Exp
 - insecure-ssh-key: Audit the use of ssh.InsecureIgnoreHostKey
 - taint-http: Url provided to HTTP request as taint input
-- sql-fotmat-string: SQL query construction using format string
+- sql-format-string: SQL query construction using format string
 - sql-string-concat: SQL query construction using string concatenation
 - unescapted-html-data: Use of unescaped data in HTML templates
 - cmd-exec: Audit use of command execution
