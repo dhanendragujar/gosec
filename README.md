@@ -43,38 +43,38 @@ or to specify a set of rules to explicitly exclude using the '-exclude=' flag. T
 
 ### Available rules
 
-- G101: Look for hard coded credentials
-- G102: Bind to all interfaces
-- G103: Audit the use of unsafe block
-- G104: Audit errors not checked
-- G105: Audit the use of math/big.Int.Exp
-- G106: Audit the use of ssh.InsecureIgnoreHostKey
-- G107: Url provided to HTTP request as taint input
-- G201: SQL query construction using format string
-- G202: SQL query construction using string concatenation
-- G203: Use of unescaped data in HTML templates
-- G204: Audit use of command execution
-- G301: Poor file permissions used when creating a directory
-- G302: Poor file permissions used with chmod
-- G303: Creating tempfile using a predictable path
-- G304: File path provided as taint input
-- G305: File traversal when extracting zip archive
-- G401: Detect the usage of DES, RC4, MD5 or SHA1
-- G402: Look for bad TLS connection settings
-- G403: Ensure minimum RSA key length of 2048 bits
-- G404: Insecure random number source (rand)
-- G501: Import blacklist: crypto/md5
-- G502: Import blacklist: crypto/des
-- G503: Import blacklist: crypto/rc4
-- G504: Import blacklist: net/http/cgi
-- G505: Import blacklist: crypto/sha1
+- hardcreds: Look for hard coded credentials
+- bind-interfaces: Bind to all interfaces
+- unsafe-block: Audit the use of unsafe block
+- error-check: Audit errors not checked
+- math-audit: Audit the use of math/big.Int.Exp
+- insecure-ssh-key: Audit the use of ssh.InsecureIgnoreHostKey
+- taint-http: Url provided to HTTP request as taint input
+- sql-fotmat-string: SQL query construction using format string
+- sql-string-concat: SQL query construction using string concatenation
+- unescapted-html-data: Use of unescaped data in HTML templates
+- cmd-exec: Audit use of command execution
+- dir-perm: Poor file permissions used when creating a directory
+- poor-chmod: Poor file permissions used with chmod
+- predict-path: Creating tempfile using a predictable path
+- taint-file-path: File path provided as taint input
+- file-traverse: File traversal when extracting zip archive
+- insecure-lib: Detect the usage of DES, RC4, MD5 or SHA1
+- bad-tls: Look for bad TLS connection settings
+- min-key-rsa: Ensure minimum RSA key length of 2048 bits
+- insecure-rand: Insecure random number source (rand)
+- blacklist-md5: Import blacklist: crypto/md5
+- blacklist-des: Import blacklist: crypto/des
+- blacklist-rc4: Import blacklist: crypto/rc4
+- blacklist-http-cgi: Import blacklist: net/http/cgi
+- blacklist-sha1: Import blacklist: crypto/sha1
 
 ```bash
 # Run a specific set of rules
-$ gosec -include=G101,G203,G401 ./...
+$ gosec -include=hardcreds, bind-interfaces, insecure-ssh-key ./...
 
 # Run everything except for rule G303
-$ gosec -exclude=G303 ./...
+$ gosec -exclude=blacklist-sha1 ./...
 ```
 
 ### Configuration
