@@ -2,13 +2,13 @@ package testutils
 
 // CodeSample encapsulates a snippet of source code that compiles, and how many errors should be detected
 type CodeSample struct {
-	Code   []string
+	Code   []strings
 	Errors int
 }
 
 var (
-	// SampleCodeG101 code snippets for hardcoded credentials
-	SampleCodeG101 = []CodeSample{{[]string{`
+	// SampleCodehardcreds code snippets for hardcoded credentials
+	SampleCodehardcreds = []CodeSample{{[]string{`
 package main
 import "fmt"
 func main() {
@@ -68,8 +68,8 @@ func main() {
 	println(ATNStateTokenStart)
 }`}, 1}}
 
-	// SampleCodeG102 code snippets for network binding
-	SampleCodeG102 = []CodeSample{
+	// SampleCodebind-interfaces code snippets for network binding
+	SampleCodebind-interfaces = []CodeSample{
 		// Bind to all networks explicitly
 		{[]string{`
 package main
@@ -151,8 +151,8 @@ func main() {
 	defer l.Close()
 }`}, 1},
 	}
-	// SampleCodeG103 find instances of unsafe blocks for auditing purposes
-	SampleCodeG103 = []CodeSample{
+	// SampleCodeunsafe-block find instances of unsafe blocks for auditing purposes
+	SampleCodeunsafe-block = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -173,8 +173,8 @@ func main() {
    	fmt.Printf("\nintPtr=%p, *intPtr=%d.\n\n", intPtr, *intPtr)
 }`}, 3}}
 
-	// SampleCodeG104 finds errors that aren't being handled
-	SampleCodeG104 = []CodeSample{
+	// SampleCodeerror-check finds errors that aren't being handled
+	SampleCodeerror-check = []CodeSample{
 		{[]string{`
 package main
 import "fmt"
@@ -231,8 +231,8 @@ package main
 func dummy(){}
 `}, 0}}
 
-	// SampleCodeG104Audit finds errors that aren't being handled in audit mode
-	SampleCodeG104Audit = []CodeSample{
+	// SampleCodeerror-checkAudit finds errors that aren't being handled in audit mode
+	SampleCodeerror-checkAudit = []CodeSample{
 		{[]string{`
 package main
 import "fmt"
@@ -288,8 +288,8 @@ func main() {
 package main
 func dummy(){}
 `}, 0}}
-	// SampleCodeG105 - bignum overflow
-	SampleCodeG105 = []CodeSample{{[]string{`
+	// SampleCodemath-audit - bignum overflow
+	SampleCodemath-audit = []CodeSample{{[]string{`
 package main
 import (
 	"math/big"
@@ -305,8 +305,8 @@ func main() {
     z = z.Exp(x, y, m)
 }`}, 1}}
 
-	// SampleCodeG106 - ssh InsecureIgnoreHostKey
-	SampleCodeG106 = []CodeSample{{[]string{`
+	// SampleCodeinsecure-ssh-key - ssh InsecureIgnoreHostKey
+	SampleCodeinsecure-ssh-key = []CodeSample{{[]string{`
 package main
 import (
         "golang.org/x/crypto/ssh"
@@ -315,8 +315,8 @@ func main() {
         _ =  ssh.InsecureIgnoreHostKey()
 }`}, 1}}
 
-	// SampleCodeG107 - SSRF via http requests with variable url
-	SampleCodeG107 = []CodeSample{{[]string{`
+	// SampleCodetaint-http - SSRF via http requests with variable url
+	SampleCodetaint-http = []CodeSample{{[]string{`
 package main
 import (
 	"net/http"
@@ -356,8 +356,8 @@ func main() {
     	}
       	fmt.Println(resp.Status)
 }`}, 0}}
-	// SampleCodeG201 - SQL injection via format string
-	SampleCodeG201 = []CodeSample{
+	// SampleCodesql-format-string - SQL injection via format string
+	SampleCodesql-format-string = []CodeSample{
 		{[]string{`
 // Format string without proper quoting
 package main
@@ -446,8 +446,8 @@ func main(){
 	fmt.Sprintln()
 }`}, 0}}
 
-	// SampleCodeG202 - SQL query string building via string concatenation
-	SampleCodeG202 = []CodeSample{
+	// SampleCodesql-string-concat - SQL query string building via string concatenation
+	SampleCodesql-string-concat = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -522,8 +522,8 @@ func main(){
 }
 `}, 0}}
 
-	// SampleCodeG203 - Template checks
-	SampleCodeG203 = []CodeSample{
+	// SampleCodeunescaped-html-data - Template checks
+	SampleCodeunescaped-html-data = []CodeSample{
 		{[]string{`
 // We assume that hardcoded template strings are safe as the programmer would
 // need to be explicitly shooting themselves in the foot (as below)
@@ -592,8 +592,8 @@ func main() {
 	t.Execute(os.Stdout, v)
 }`}, 1}}
 
-	// SampleCodeG204 - Subprocess auditing
-	SampleCodeG204 = []CodeSample{{[]string{`
+	// SampleCodecmd-exec - Subprocess auditing
+	SampleCodecmd-exec = []CodeSample{{[]string{`
 package main
 import "syscall"
 func main() {
@@ -645,8 +645,8 @@ func main() {
 	log.Printf("Command finished with error: %v", err)
 }`}, 1}}
 
-	// SampleCodeG301 - mkdir permission check
-	SampleCodeG301 = []CodeSample{{[]string{`
+	// SampleCodedir-perm - mkdir permission check
+	SampleCodedir-perm = []CodeSample{{[]string{`
 package main
 import "os"
 func main() {
@@ -655,8 +655,8 @@ func main() {
 	os.MkdirAll("/tmp/mydir/mysubidr", 0775)
 }`}, 2}}
 
-	// SampleCodeG302 - file create / chmod permissions check
-	SampleCodeG302 = []CodeSample{{[]string{`
+	// SampleCodepoor-chmod - file create / chmod permissions check
+	SampleCodepoor-chmod = []CodeSample{{[]string{`
 package main
 import "os"
 func main() {
@@ -666,8 +666,8 @@ func main() {
 	os.OpenFile("/tmp/thing", os.O_CREATE|os.O_WRONLY, 0600)
 }`}, 2}}
 
-	// SampleCodeG303 - bad tempfile permissions & hardcoded shared path
-	SampleCodeG303 = []CodeSample{{[]string{`
+	// SampleCodepredict-path - bad tempfile permissions & hardcoded shared path
+	SampleCodepredict-path = []CodeSample{{[]string{`
 package samples
 import (
 	"io/ioutil"
@@ -679,8 +679,8 @@ func main() {
 	ioutil.WriteFile("/tmp/demo2", []byte("This is some data"), 0644)
 }`}, 2}}
 
-	// SampleCodeG304 - potential file inclusion vulnerability
-	SampleCodeG304 = []CodeSample{{[]string{`
+	// SampleCodetaint-file-path - potential file inclusion vulnerability
+	SampleCodetaint-file-path = []CodeSample{{[]string{`
 package main
 import (
 "os"
@@ -780,8 +780,8 @@ func main() {
 	log.Print(body)
 }`}, 1}}
 
-	// SampleCodeG305 - File path traversal when extracting zip archives
-	SampleCodeG305 = []CodeSample{{[]string{`
+	// SampleCodefile-traverse - File path traversal when extracting zip archives
+	SampleCodefile-traverse = []CodeSample{{[]string{`
 package unzip
 
 import (
@@ -874,8 +874,8 @@ func unzip(archive, target string) error {
 	return nil
 }`}, 1}}
 
-	// SampleCodeG401 - Use of weak crypto MD5
-	SampleCodeG401 = []CodeSample{
+	// SampleCodeinsecure-lib - Use of weak crypto MD5
+	SampleCodeinsecure-lib = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -899,8 +899,8 @@ func main() {
 	fmt.Printf("%x", h.Sum(nil))
 }`}, 1}}
 
-	// SampleCodeG401b - Use of weak crypto SHA1
-	SampleCodeG401b = []CodeSample{
+	// SampleCodeinsecure-libb - Use of weak crypto SHA1
+	SampleCodeinsecure-libb = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -924,8 +924,8 @@ func main() {
 	fmt.Printf("%x", h.Sum(nil))
 }`}, 1}}
 
-	// SampleCodeG402 - TLS settings
-	SampleCodeG402 = []CodeSample{{[]string{`
+	// SampleCodebad-tls - TLS settings
+	SampleCodebad-tls = []CodeSample{{[]string{`
 // InsecureSkipVerify
 package main
 import (
@@ -1002,8 +1002,8 @@ func main() {
 	}
 }`}, 1}}
 
-	// SampleCodeG403 - weak key strength
-	SampleCodeG403 = []CodeSample{
+	// SampleCodemin-key-rsa - weak key strength
+	SampleCodemin-key-rsa = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -1020,8 +1020,8 @@ func main() {
 	fmt.Println(pvk)
 }`}, 1}}
 
-	// SampleCodeG404 - weak random number
-	SampleCodeG404 = []CodeSample{
+	// SampleCodeinsecure-rand - weak random number
+	SampleCodeinsecure-rand = []CodeSample{
 		{[]string{`
 package main
 import "crypto/rand"
@@ -1047,8 +1047,8 @@ func main() {
 	println(i)
 }`}, 0}}
 
-	// SampleCodeG501 - Blacklisted import MD5
-	SampleCodeG501 = []CodeSample{
+	// SampleCodeblacklist-md5 - Blacklisted import MD5
+	SampleCodeblacklist-md5 = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -1062,8 +1062,8 @@ func main() {
 	}
 }`}, 1}}
 
-	// SampleCodeG502 - Blacklisted import DES
-	SampleCodeG502 = []CodeSample{
+	// SampleCodeblacklist-des - Blacklisted import DES
+	SampleCodeblacklist-des = []CodeSample{
 		{[]string{`
 package main
 import (
@@ -1090,8 +1090,8 @@ func main() {
 	fmt.Println("Secret message is: %s", hex.EncodeToString(ciphertext))
 }`}, 1}}
 
-	// SampleCodeG503 - Blacklisted import RC4
-	SampleCodeG503 = []CodeSample{{[]string{`
+	// SampleCodeblacklist-rc4 - Blacklisted import RC4
+	SampleCodeblacklist-rc4 = []CodeSample{{[]string{`
 package main
 import (
 	"crypto/rc4"
@@ -1109,8 +1109,8 @@ func main() {
 	fmt.Println("Secret message is: %s", hex.EncodeToString(ciphertext))
 }`}, 1}}
 
-	// SampleCodeG504 - Blacklisted import CGI
-	SampleCodeG504 = []CodeSample{{[]string{`
+	// SampleCodeblacklist-http-cgi - Blacklisted import CGI
+	SampleCodeblacklist-http-cgi = []CodeSample{{[]string{`
 package main
 import (
 	"net/http/cgi"
@@ -1119,8 +1119,8 @@ import (
 func main() {
 	cgi.Serve(http.FileServer(http.Dir("/usr/share/doc")))
 }`}, 1}}
-	// SampleCodeG505 - Blacklisted import SHA1
-	SampleCodeG505 = []CodeSample{
+	// SampleCodeblacklist-sha1 - Blacklisted import SHA1
+	SampleCodeblacklist-sha1 = []CodeSample{
 		{[]string{`
 package main
 import (

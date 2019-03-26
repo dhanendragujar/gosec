@@ -24,7 +24,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
-	_ "time"
+	"time"
 
 	"github.com/kisielk/gotool"
 	"github.com/securego/gosec"
@@ -53,10 +53,10 @@ USAGE:
 	$ gosec -fmt=json -out=results.json ./...
 
 	# Run a specific set of rules (by default all rules will be run):
-	$ gosec -include=G101,G203,G401  ./...
+	$ gosec -include=hardcreds,unescaped-html-data,insecure-lib  ./...
 
 	# Run all rules except the provided
-	$ gosec -exclude=G101 $GOPATH/src/github.com/example/project/...
+	$ gosec -exclude=hardcreds $GOPATH/src/github.com/example/project/...
 
 `
 )
@@ -250,7 +250,7 @@ func convertToScore(severity string) (gosec.Score, error) {
 }
 
 func main() {
-/*
+
 	start_time := time.Now()
 	fmt.Fprintf(os.Stdout, "Created_time: " + start_time.Format(time.RFC3339) + "\n")
 
@@ -259,7 +259,6 @@ func main() {
 
 	source := "GoSec" 
 	fmt.Fprintf(os.Stdout, "Source: " + source + "\n")
-*/
 
 	// Setup usage description
 	flag.Usage = usage

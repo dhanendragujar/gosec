@@ -58,110 +58,110 @@ var _ = Describe("gosec rules", func() {
 
 	Context("report correct errors for all samples", func() {
 		It("should detect hardcoded credentials", func() {
-			runner("G101", testutils.SampleCodeG101)
+			runner("hardcreds", testutils.SampleCodehardcreds)
 		})
 
 		It("should detect binding to all network interfaces", func() {
-			runner("G102", testutils.SampleCodeG102)
+			runner("bind-interfaces", testutils.SampleCodebind-interfaces)
 		})
 
 		It("should use of unsafe block", func() {
-			runner("G103", testutils.SampleCodeG103)
+			runner("unsafe-block", testutils.SampleCodeunsafe-block)
 		})
 
 		It("should detect errors not being checked", func() {
-			runner("G104", testutils.SampleCodeG104)
+			runner("error-check", testutils.SampleCodeerror-check)
 		})
 
 		It("should detect errors not being checked in audit mode", func() {
-			runner("G104", testutils.SampleCodeG104Audit, option{name: gosec.Audit, value: "enabled"})
+			runner("error-check", testutils.SampleCodeerror-checkAudit, option{name: gosec.Audit, value: "enabled"})
 		})
 
 		It("should detect of big.Exp function", func() {
-			runner("G105", testutils.SampleCodeG105)
+			runner("math-audit", testutils.SampleCodemath-audit)
 		})
 
 		It("should detect of ssh.InsecureIgnoreHostKey function", func() {
-			runner("G106", testutils.SampleCodeG106)
+			runner("insecure-ssh-key", testutils.SampleCodeinsecure-ssh-key)
 		})
 
 		It("should detect ssrf via http requests with variable url", func() {
-			runner("G107", testutils.SampleCodeG107)
+			runner("taint-http", testutils.SampleCodetaint-http)
 		})
 
 		It("should detect sql injection via format strings", func() {
-			runner("G201", testutils.SampleCodeG201)
+			runner("sql-format-string", testutils.SampleCodesql-format-string)
 		})
 
 		It("should detect sql injection via string concatenation", func() {
-			runner("G202", testutils.SampleCodeG202)
+			runner("sql-string-concat", testutils.SampleCodesql-string-concat)
 		})
 
 		It("should detect unescaped html in templates", func() {
-			runner("G203", testutils.SampleCodeG203)
+			runner("unescaped-html-data", testutils.SampleCodeunescaped-html-data)
 		})
 
 		It("should detect command execution", func() {
-			runner("G204", testutils.SampleCodeG204)
+			runner("cmd-exec", testutils.SampleCodecmd-exec)
 		})
 
 		It("should detect poor file permissions on mkdir", func() {
-			runner("G301", testutils.SampleCodeG301)
+			runner("dir-perm", testutils.SampleCodedir-perm)
 		})
 
 		It("should detect poor permissions when creating or chmod a file", func() {
-			runner("G302", testutils.SampleCodeG302)
+			runner("poor-chmod", testutils.SampleCodepoor-chmod)
 		})
 
 		It("should detect insecure temp file creation", func() {
-			runner("G303", testutils.SampleCodeG303)
+			runner("predict-path", testutils.SampleCodepredict-path)
 		})
 
 		It("should detect file path provided as taint input", func() {
-			runner("G304", testutils.SampleCodeG304)
+			runner("taint-file-path", testutils.SampleCodetaint-file-path)
 		})
 
 		It("should detect file path traversal when extracting zip archive", func() {
-			runner("G305", testutils.SampleCodeG305)
+			runner("file-traverse", testutils.SampleCodefile-traverse)
 		})
 
 		It("should detect weak crypto algorithms", func() {
-			runner("G401", testutils.SampleCodeG401)
+			runner("insecure-lib", testutils.SampleCodeinsecure-lib)
 		})
 
 		It("should detect weak crypto algorithms", func() {
-			runner("G401", testutils.SampleCodeG401b)
+			runner("insecure-lib", testutils.SampleCodeinsecure-libb)
 		})
 
 		It("should find insecure tls settings", func() {
-			runner("G402", testutils.SampleCodeG402)
+			runner("bad-tls", testutils.SampleCodebad-tls)
 		})
 
 		It("should detect weak creation of weak rsa keys", func() {
-			runner("G403", testutils.SampleCodeG403)
+			runner("min-key-rsa", testutils.SampleCodemin-key-rsa)
 		})
 
 		It("should find non cryptographically secure random number sources", func() {
-			runner("G404", testutils.SampleCodeG404)
+			runner("insecure-rand", testutils.SampleCodeinsecure-rand)
 		})
 
 		It("should detect blacklisted imports - MD5", func() {
-			runner("G501", testutils.SampleCodeG501)
+			runner("blacklist-md5", testutils.SampleCodeblacklist-md5)
 		})
 
 		It("should detect blacklisted imports - DES", func() {
-			runner("G502", testutils.SampleCodeG502)
+			runner("blacklist-des", testutils.SampleCodeblacklist-des)
 		})
 
 		It("should detect blacklisted imports - RC4", func() {
-			runner("G503", testutils.SampleCodeG503)
+			runner("blacklist-rc4", testutils.SampleCodeblacklist-rc4)
 		})
 
 		It("should detect blacklisted imports - CGI (httpoxy)", func() {
-			runner("G504", testutils.SampleCodeG504)
+			runner("blacklist-http-cgi", testutils.SampleCodeblacklist-http-cgi)
 		})
 		It("should detect blacklisted imports - SHA1", func() {
-			runner("G505", testutils.SampleCodeG505)
+			runner("blacklist-sha1", testutils.SampleCodeblacklist-sha1)
 		})
 
 	})

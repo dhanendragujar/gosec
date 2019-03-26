@@ -1,0 +1,29 @@
+{
+	"Golang errors": {},
+	"Issues": [
+		{
+			"severity": "MEDIUM",
+			"confidence": "LOW",
+			"rule_id": "TaintAnalysis",
+			"details": "Variable tainted with user input and used before validation",
+			"file": "/home/dhanendra/work/src/go/go1.go",
+			"code": "body := r.FormValue(\"body\")",
+			"line": "53"
+		},
+		{
+			"severity": "MEDIUM",
+			"confidence": "HIGH",
+			"rule_id": "taint-file-path",
+			"details": "Potential file inclusion via variable",
+			"file": "/home/dhanendra/work/src/go/go1.go",
+			"code": "ioutil.ReadFile(filename)",
+			"line": "28"
+		}
+	],
+	"Stats": {
+		"files": 1,
+		"lines": 93,
+		"nosec": 0,
+		"found": 2
+	}
+}

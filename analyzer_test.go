@@ -97,9 +97,9 @@ var _ = Describe("Analyzer", func() {
 		It("should find errors when nosec is not in use", func() {
 
 			// Rule for MD5 weak crypto usage
-			sample := testutils.SampleCodeG401[0]
+			sample := testutils.SampleCodeinsecure-lib[0]
 			source := sample.Code[0]
-			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "G401")).Builders())
+			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "insecure-lib")).Builders())
 
 			controlPackage := testutils.NewTestPackage()
 			defer controlPackage.Close()
@@ -138,9 +138,9 @@ var _ = Describe("Analyzer", func() {
 
 		It("should not report errors when a nosec comment is present", func() {
 			// Rule for MD5 weak crypto usage
-			sample := testutils.SampleCodeG401[0]
+			sample := testutils.SampleCodeinsecure-lib[0]
 			source := sample.Code[0]
-			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "G401")).Builders())
+			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "insecure-lib")).Builders())
 
 			nosecPackage := testutils.NewTestPackage()
 			defer nosecPackage.Close()
@@ -155,13 +155,13 @@ var _ = Describe("Analyzer", func() {
 
 		It("should not report errors when an exclude comment is present for the correct rule", func() {
 			// Rule for MD5 weak crypto usage
-			sample := testutils.SampleCodeG401[0]
+			sample := testutils.SampleCodeinsecure-lib[0]
 			source := sample.Code[0]
-			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "G401")).Builders())
+			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "insecure-lib")).Builders())
 
 			nosecPackage := testutils.NewTestPackage()
 			defer nosecPackage.Close()
-			nosecSource := strings.Replace(source, "h := md5.New()", "h := md5.New() // #nosec G401", 1)
+			nosecSource := strings.Replace(source, "h := md5.New()", "h := md5.New() // #nosec insecure-lib", 1)
 			nosecPackage.AddFile("md5.go", nosecSource)
 			nosecPackage.Build()
 
@@ -172,13 +172,13 @@ var _ = Describe("Analyzer", func() {
 
 		It("should report errors when an exclude comment is present for a different rule", func() {
 			// Rule for MD5 weak crypto usage
-			sample := testutils.SampleCodeG401[0]
+			sample := testutils.SampleCodeinsecure-lib[0]
 			source := sample.Code[0]
-			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "G401")).Builders())
+			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "insecure-lib")).Builders())
 
 			nosecPackage := testutils.NewTestPackage()
 			defer nosecPackage.Close()
-			nosecSource := strings.Replace(source, "h := md5.New()", "h := md5.New() // #nosec G301", 1)
+			nosecSource := strings.Replace(source, "h := md5.New()", "h := md5.New() // #nosec dir-perm", 1)
 			nosecPackage.AddFile("md5.go", nosecSource)
 			nosecPackage.Build()
 
@@ -189,13 +189,13 @@ var _ = Describe("Analyzer", func() {
 
 		It("should not report errors when an exclude comment is present for multiple rules, including the correct rule", func() {
 			// Rule for MD5 weak crypto usage
-			sample := testutils.SampleCodeG401[0]
+			sample := testutils.SampleCodeinsecure-lib[0]
 			source := sample.Code[0]
-			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "G401")).Builders())
+			analyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "insecure-lib")).Builders())
 
 			nosecPackage := testutils.NewTestPackage()
 			defer nosecPackage.Close()
-			nosecSource := strings.Replace(source, "h := md5.New()", "h := md5.New() // #nosec G301 G401", 1)
+			nosecSource := strings.Replace(source, "h := md5.New()", "h := md5.New() // #nosec dir-perm insecure-lib", 1)
 			nosecPackage.AddFile("md5.go", nosecSource)
 			nosecPackage.Build()
 
@@ -221,14 +221,14 @@ var _ = Describe("Analyzer", func() {
 	It("should be possible to overwrite nosec comments, and report issues", func() {
 
 		// Rule for MD5 weak crypto usage
-		sample := testutils.SampleCodeG401[0]
+		sample := testutils.SampleCodeinsecure-lib[0]
 		source := sample.Code[0]
 
 		// overwrite nosec option
 		nosecIgnoreConfig := gosec.NewConfig()
 		nosecIgnoreConfig.SetGlobal(gosec.Nosec, "true")
 		customAnalyzer := gosec.NewAnalyzer(nosecIgnoreConfig, logger)
-		customAnalyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "G401")).Builders())
+		customAnalyzer.LoadRules(rules.Generate(rules.NewRuleFilter(false, "insecure-lib")).Builders())
 
 		nosecPackage := testutils.NewTestPackage()
 		defer nosecPackage.Close()

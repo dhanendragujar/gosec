@@ -17,7 +17,7 @@ var _ = Describe("Configuration", func() {
 	Context("when loading from disk", func() {
 
 		It("should be possible to load configuration from a file", func() {
-			json := `{"G101": {}}`
+			json := `{"hardcreds": {}}`
 			buffer := bytes.NewBufferString(json)
 			nread, err := configuration.ReadFrom(buffer)
 			Expect(nread).Should(Equal(int64(len(json))))
@@ -49,7 +49,7 @@ var _ = Describe("Configuration", func() {
 
 		It("should be possible to save configuration to file", func() {
 
-			configuration.Set("G101", map[string]string{
+			configuration.Set("hardcreds", map[string]string{
 				"mode": "strict",
 			})
 
@@ -57,7 +57,7 @@ var _ = Describe("Configuration", func() {
 			nbytes, err := configuration.WriteTo(buffer)
 			Expect(int(nbytes)).ShouldNot(BeZero())
 			Expect(err).ShouldNot(HaveOccurred())
-			Expect(buffer.String()).Should(Equal(`{"G101":{"mode":"strict"},"global":{}}`))
+			Expect(buffer.String()).Should(Equal(`{"hardcreds":{"mode":"strict"},"global":{}}`))
 
 		})
 	})
@@ -68,9 +68,9 @@ var _ = Describe("Configuration", func() {
 			settings := map[string]string{
 				"ciphers": "AES256-GCM",
 			}
-			configuration.Set("G101", settings)
+			configuration.Set("hardcreds", settings)
 
-			retrieved, err := configuration.Get("G101")
+			retrieved, err := configuration.Get("hardcreds")
 			Expect(err).ShouldNot(HaveOccurred())
 			Expect(retrieved).Should(HaveKeyWithValue("ciphers", "AES256-GCM"))
 			Expect(retrieved).ShouldNot(HaveKey("foobar"))

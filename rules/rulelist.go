@@ -59,39 +59,39 @@ func NewRuleFilter(action bool, ruleIDs ...string) RuleFilter {
 func Generate(filters ...RuleFilter) RuleList {
 	rules := []RuleDefinition{
 		// misc
-		{"G101", "Look for hardcoded credentials", NewHardcodedCredentials},
-		{"G102", "Bind to all interfaces", NewBindsToAllNetworkInterfaces},
-		{"G103", "Audit the use of unsafe block", NewUsingUnsafe},
-		{"G104", "Audit errors not checked", NewNoErrorCheck},
-		{"G105", "Audit the use of big.Exp function", NewUsingBigExp},
-		{"G106", "Audit the use of ssh.InsecureIgnoreHostKey function", NewSSHHostKey},
-		{"G107", "Url provided to HTTP request as taint input", NewSSRFCheck},
+		{"hardcreds", "Look for hardcoded credentials", NewHardcodedCredentials},
+		{"bind-interfaces", "Bind to all interfaces", NewBindsToAllNetworkInterfaces},
+		{"unsafe-block", "Audit the use of unsafe block", NewUsingUnsafe},
+		{"error-check", "Audit errors not checked", NewNoErrorCheck},
+		{"math-audit", "Audit the use of big.Exp function", NewUsingBigExp},
+		{"insecure-ssh-key", "Audit the use of ssh.InsecureIgnoreHostKey function", NewSSHHostKey},
+		{"taint-http", "Url provided to HTTP request as taint input", NewSSRFCheck},
 
 		// injection
-		{"G201", "SQL query construction using format string", NewSQLStrFormat},
-		{"G202", "SQL query construction using string concatenation", NewSQLStrConcat},
-		{"G203", "Use of unescaped data in HTML templates", NewTemplateCheck},
-		{"G204", "Audit use of command execution", NewSubproc},
+		{"sql-format-string", "SQL query construction using format string", NewSQLStrFormat},
+		{"sql-string-concat", "SQL query construction using string concatenation", NewSQLStrConcat},
+		{"unescaped-html-data", "Use of unescaped data in HTML templates", NewTemplateCheck},
+		{"cmd-exec", "Audit use of command execution", NewSubproc},
 
 		// filesystem
-		{"G301", "Poor file permissions used when creating a directory", NewMkdirPerms},
-		{"G302", "Poor file permissions used when creation file or using chmod", NewFilePerms},
-		{"G303", "Creating tempfile using a predictable path", NewBadTempFile},
-		{"G304", "File path provided as taint input", NewReadFile},
-		{"G305", "File path traversal when extracting zip archive", NewArchive},
+		{"dir-perm", "Poor file permissions used when creating a directory", NewMkdirPerms},
+		{"poor-chmod", "Poor file permissions used when creation file or using chmod", NewFilePerms},
+		{"predict-path", "Creating tempfile using a predictable path", NewBadTempFile},
+		{"taint-file-path", "File path provided as taint input", NewReadFile},
+		{"file-traverse", "File path traversal when extracting zip archive", NewArchive},
 
 		// crypto
-		{"G401", "Detect the usage of DES, RC4, MD5 or SHA1", NewUsesWeakCryptography},
-		{"G402", "Look for bad TLS connection settings", NewIntermediateTLSCheck},
-		{"G403", "Ensure minimum RSA key length of 2048 bits", NewWeakKeyStrength},
-		{"G404", "Insecure random number source (rand)", NewWeakRandCheck},
+		{"insecure-lib", "Detect the usage of DES, RC4, MD5 or SHA1", NewUsesWeakCryptography},
+		{"bad-tls", "Look for bad TLS connection settings", NewIntermediateTLSCheck},
+		{"min-key-rsa", "Ensure minimum RSA key length of 2048 bits", NewWeakKeyStrength},
+		{"insecure-rand", "Insecure random number source (rand)", NewWeakRandCheck},
 
 		// blacklist
-		{"G501", "Import blacklist: crypto/md5", NewBlacklistedImportMD5},
-		{"G502", "Import blacklist: crypto/des", NewBlacklistedImportDES},
-		{"G503", "Import blacklist: crypto/rc4", NewBlacklistedImportRC4},
-		{"G504", "Import blacklist: net/http/cgi", NewBlacklistedImportCGI},
-		{"G505", "Import blacklist: crypto/sha1", NewBlacklistedImportSHA1},
+		{"blacklist-md5", "Import blacklist: crypto/md5", NewBlacklistedImportMD5},
+		{"blacklist-des", "Import blacklist: crypto/des", NewBlacklistedImportDES},
+		{"blacklist-rc4", "Import blacklist: crypto/rc4", NewBlacklistedImportRC4},
+		{"blacklist-http-cgi", "Import blacklist: net/http/cgi", NewBlacklistedImportCGI},
+		{"blacklist-sha1", "Import blacklist: crypto/sha1", NewBlacklistedImportSHA1},
 	}
 
 	ruleMap := make(map[string]RuleDefinition)

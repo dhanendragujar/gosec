@@ -63,7 +63,7 @@ func (r *filePermissions) Match(n ast.Node, c *gosec.Context) (*gosec.Issue, err
 // NewFilePerms creates a rule to detect file creation with a more permissive than configured
 // permission mask.
 func NewFilePerms(id string, conf gosec.Config) (gosec.Rule, []ast.Node) {
-	mode := getConfiguredMode(conf, "G302", 0600)
+	mode := getConfiguredMode(conf, "poor-chmod", 0600)
 	return &filePermissions{
 		mode:  mode,
 		pkg:   "os",
@@ -80,7 +80,7 @@ func NewFilePerms(id string, conf gosec.Config) (gosec.Rule, []ast.Node) {
 // NewMkdirPerms creates a rule to detect directory creation with more permissive than
 // configured permission mask.
 func NewMkdirPerms(id string, conf gosec.Config) (gosec.Rule, []ast.Node) {
-	mode := getConfiguredMode(conf, "G301", 0750)
+	mode := getConfiguredMode(conf, "dir-perm", 0750)
 	return &filePermissions{
 		mode:  mode,
 		pkg:   "os",
